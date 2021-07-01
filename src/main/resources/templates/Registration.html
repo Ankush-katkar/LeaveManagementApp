@@ -6,36 +6,37 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<h2 th:text="${message}"></h2>
 <div class="container"><form action="#" th:action="@{/UserRegister}"
 							th:object="${userReg}" method="post">
   <div class="form-group">
     <label for="exampleInputEmail1">First Name</label>
-    <input type="text" class="form-control" name="firstName" aria-describedby="emailHelp" placeholder="Enter email">
+    <input type="text" class="form-control" name="firstName" aria-describedby="emailHelp" placeholder="Enter email" required>
   </div>
   
   <div class="form-group">
     <label for="exampleInputEmail1">LastName</label>
-    <input type="text" class="form-control" name="lastName" aria-describedby="emailHelp" placeholder="First Name">
+    <input type="text" class="form-control" name="lastName" aria-describedby="emailHelp" placeholder="First Name" required>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Last Name">
+    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Last Name" required>
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Username</label>
-    <input type="text" class="form-control" name="username" id="exampleInputPassword1" placeholder="Password">
+    <input type="text" class="form-control" name="username" id="exampleInputPassword1" placeholder="Password" required>
   </div>
 
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+    <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password" required>
   </div>
   <div class="col-md-6 mb-4">
-<label>Roles</label>
-    <select type="select" class="select" name="roles">
-      <option >Select roles</option>
+<label>Select Roles</label>
+    <select type="select" class="select" name="roles" required>
+
       <option value="Emp">Emp</option>
       <option value="Admin">Admin</option>
       <option value="Lead">Lead</option>

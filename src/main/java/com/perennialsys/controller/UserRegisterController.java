@@ -25,7 +25,12 @@ public class UserRegisterController {
 	
 	@GetMapping("/UserRegister")
 	public String Employee(Model model) {
-		
+	//logger.info("ankush ");
+	//logger.warn("this is warning message");
+	//logger.error("error message ");
+	//logger.debug("debug message");
+	//logger.trace("trace level");
+	//System.out.println(10/0);
 		model.addAttribute("userReg", new User());
 		
 		return "Registration";
@@ -39,21 +44,21 @@ public class UserRegisterController {
 	
 	@PostMapping("/UserRegister")
 	public String User(@ModelAttribute("userReg") User user, RedirectAttributes redirectAttributes, BindingResult result) {
-	System.out.println("user is here "+ user);
+
 
 	boolean userSaved=	userService.SaveUser(user);
-	//logger.debug("Hello from Logback {}", userSaved);
+		logger.trace("A TRACE Message");
 	if (userSaved) {
 		redirectAttributes.addFlashAttribute("message", "Failed");
 		redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
 		if (result.hasErrors()) {
 			return "redirect:/UserRegister";
 		}
-		redirectAttributes.addFlashAttribute("message", "Success");
+		redirectAttributes.addFlashAttribute("message", "Your registration is successful");
 		redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
 	}
-	return "redirect:/Login";
+	return "redirect:/UserRegister";
 		
 	}
 	
