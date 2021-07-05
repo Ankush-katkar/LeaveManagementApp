@@ -8,17 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Data
-@Table(name="leave")
+@Table(name = "leaveapply")
 public class Leave {
-@Id
-@GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;
-    private String leaveFromDate;
-    private String leaveToDate;
-    private  String reason;
-    private String leaveType;
-    private String leaveMessage;
-    private  String status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String leavefromdate;
+
+    private String leavetodate;
+    private String reason;
+    private String leavetype;
+    private String leavemessage;
+    private String status;
 }

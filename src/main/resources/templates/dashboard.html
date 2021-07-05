@@ -20,23 +20,23 @@
                 <a class="nav-link" href="#">Home <span class="sr-only"></span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">leave</a>
+                <a class="nav-link" href="/leave">leave</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/leave2">leave2</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">apply</a>
             </li>
-
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Logout" />
+            </form>
 
             <li class="nav-item" style="text-align: center" >
-            <span sec:authentication="name">Welcome Username</span>
 
-            <span sec:authentication="principal.authorities">Roles</span>
+                <span sec:authentication="name">Username</span>
+                <span sec:authentication="principal.authorities">Roles</span>
             </li>
 
         </ul>

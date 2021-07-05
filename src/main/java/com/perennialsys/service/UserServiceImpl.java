@@ -1,20 +1,21 @@
 package com.perennialsys.service;
 
+import com.perennialsys.entity.RegisterUser;
+import com.perennialsys.repository.RegisterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.perennialsys.entity.User;
 import com.perennialsys.repository.UserRepository;
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	UserRepository userRepository;
+	RegisterRepository registerRepository;
 	
 	@Override
-	public boolean SaveUser(User user) {
+	public boolean save(RegisterUser us) {
 
-		User userSaved=	userRepository.save(user);
+		RegisterUser userSaved=	registerRepository.save(us);
 		
 		return userSaved.getId() != null;
 	}
