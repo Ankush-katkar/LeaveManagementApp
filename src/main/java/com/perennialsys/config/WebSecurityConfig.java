@@ -45,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
 
              .antMatchers("/").hasAnyAuthority("EMP", "ADMIN", "LEAD", "ACC")
-          //      .antMatchers("/leave").hasAnyAuthority("EMP", "ADMIN", "LEAD", "ACC")
-                .antMatchers("/approve").hasAnyAuthority("ADMIN", "LEAD")
+          //     .antMatchers("/leave").hasAnyAuthority("EMP", "ADMIN", "LEAD", "ACC")
+                .antMatchers("/approveLeave/**").hasAnyAuthority("ADMIN", "LEAD")
                 .antMatchers("/leavebal/**").hasAnyAuthority("ACC", "ADMIN")
                 .antMatchers("/delete/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<h1>Leave apply status</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">From Date</th>
+        <th scope="col">To Date</th>
+        <th scope="col">Reason</th>
+        <th scope="col">LeaveType</th>
+        <th scope="col">LeaveMessage</th>
+        <th scope="col">LeaveStatus</th>
+        <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
+            <th scope="col">Actions</th>
+        </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="leave: ${leaveRec}">
+        <td th:text="${leave.id}" />
+        <td th:text="${leave.leavefromdate}" />
+
+        <td th:text="${leave.leavetodate}" />
+
+        <td th:text="${leave.reason}" />
+
+        <td th:text="${leave.leavetype}" />
+
+        <td th:text="${leave.leavemessage}" />
+
+        <td th:text="${leave.status}" />
+        <td >
+    <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
+        <a th:href="@{'/approveLeave/' + ${leave.id}}"> Approved</a>|
+        <a th:href="@{'/rejectLeave/' + ${leave.id}}"> Reject</a>
+    </div></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
