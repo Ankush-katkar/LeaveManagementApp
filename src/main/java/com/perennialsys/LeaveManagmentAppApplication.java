@@ -13,4 +13,9 @@ public class LeaveManagmentAppApplication {
 		SpringApplication.run(LeaveManagmentAppApplication.class, args);
 	}
 
+public void doProcess(){
+
+//logic goes here
+}
+
 }
