@@ -2,6 +2,7 @@ package com.perennialsys.controller;
 
 import com.perennialsys.entity.Leave;
 import com.perennialsys.entity.LeaveBalance;
+import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.LeaveRepository;
 //import com.perennialsys.service.LeaveService;
 import org.apache.logging.log4j.spi.LoggerContextKey;
@@ -25,6 +26,8 @@ public class LeaveController {
 
     @Autowired
     LeaveRepository leaveRepository;
+    @Autowired
+    LeaveBalRepository leaveBalRepository;
 
     @GetMapping("/leave" )
     public String submitForm(Model model){
@@ -60,8 +63,8 @@ leave.setStatus("PENDING");
     @PostMapping("/leavebal")
     public String submitForm1(@ModelAttribute("lb") LeaveBalance lb) {
 
-        LeaveBalance savedlb =leaveRepository.saveBal(lb);
-        return "saved";
+        LeaveBalance savedlb =leaveBalRepository.save(lb);
+        return "redirect:leavebal";
 
     }
 

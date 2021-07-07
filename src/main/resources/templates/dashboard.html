@@ -26,6 +26,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/leavestatus">LeaveStatus</a>
             </li>
+            <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
+                <a th:href="@{'/leavebal/'}"> Add leave</a>|
+
+            </div>
           <!--  <li class="nav-item">
                 <a class="nav-link" href="#">apply</a>
             </li>-->
