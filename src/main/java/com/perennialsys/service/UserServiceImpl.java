@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService{
 	public boolean save(RegisterUser us) {
 
 		RegisterUser userSaved=	registerRepository.save(us);
-		
-		return userSaved.getId() != null;
+		//TODO change this
+		return true;
 	}
 
 }

@@ -13,34 +13,37 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
-	@Entity
-	@Table(name = "users")
-	public class User {
+@Entity
+@Table(name = "users")
+public class User {
 
-		@Id
-		@Column(name = "user_id")
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long id;
+    @Id
+    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-		private String username;
-		private String password;
-		private boolean enabled;
+    private String username;
+    private String password;
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    @Column(name = "is_enabled")
+    private boolean enabled;
 
-		@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-		@JoinTable(
-				name = "users_roles",
-				joinColumns = @JoinColumn(name = "user_id"),
-				inverseJoinColumns = @JoinColumn(name = "role_id")
-		)
-		private Set<Role> roles = new HashSet<>();
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
-		public Long getId() {
-			return id;
-		}
+    public int getId() {
+        return id;
+    }
 
 }

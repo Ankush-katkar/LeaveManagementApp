@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class RegisterUser {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private  String firstname;
     private  String lastname;
     private  String email;
