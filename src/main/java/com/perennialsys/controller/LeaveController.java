@@ -4,11 +4,8 @@ import com.perennialsys.entity.Leave;
 import com.perennialsys.entity.LeaveBalance;
 import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.LeaveRepository;
-//import com.perennialsys.service.LeaveService;
 import com.perennialsys.service.LeaveService;
-import org.apache.logging.log4j.spi.LoggerContextKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,12 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class LeaveController {
@@ -56,7 +49,7 @@ public class LeaveController {
     public String applyNewLeave(Leave leave, BindingResult result, Model model) {
         leave.setStatus("PENDING");
         System.out.println(leave);
-       String savedLeave = lveService.createNewLeave(leave);
+        String savedLeave = lveService.createNewLeave(leave);
         return "redirect:leave";
     }
 
@@ -91,8 +84,6 @@ public class LeaveController {
         return "redirect:/leavestatus";
 
     }
-
-
 
 
 }

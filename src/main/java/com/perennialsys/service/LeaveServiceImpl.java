@@ -5,30 +5,26 @@ import com.perennialsys.entity.LeaveBalance;
 import com.perennialsys.entity.User;
 import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.LeaveRepository;
-import com.zaxxer.hikari.pool.HikariProxyCallableStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
     @Autowired
     private LeaveRepository lveRepo;
     @Autowired
-    private LeaveBalRepository lbRepo;
+    private LeaveBalRepository leaveBalRepository;
+    private Object userdetails;
 
 
     public static long getDifferenceDays(LocalDate d1, LocalDate d2) {
@@ -41,10 +37,37 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public String createNewLeave(Leave leave) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+       // Object user = auth.getPrincipal();
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+      int userId=11;
+
+       LeaveBalance leavebal= leaveBalRepository.getById((long) userId);
+
+        int pl =leavebal.getPaidLeave();
+        int el =leavebal.getEmergencyLeave();
+        LocalDate d1 = leave.getLeaveFromDate();
+        LocalDate d2 = leave.getLeaveToDate();
+        long diff = getDifferenceDays(d1, d2);
+        String lt = leave.getLeaveType();
+
+        if (lt.equals("el") || lt.equals("pl")) {
+                leavebal.setEmergencyLeave((int) (el-diff));
+            leavebal.setPaidLeave((int) (pl-diff));
+        }
+
+    leaveBalRepository.save(leavebal);
+
+    Leave  savedObj=  lveRepo.save(leave);
+
+
+return "savedObj";
+    }
       /*  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object user = auth.getPrincipal();
         System.out.println(leave);*/
+/*
         LeaveBalance leaveBalance = new LeaveBalance();
 
         List<LeaveBalance> obj = lbRepo.findAll();
@@ -68,10 +91,9 @@ public class LeaveServiceImpl implements LeaveService {
                 }
                 if (lt.equals("pl")) {
                     long tosavedpl = pl - diff;
-                    leaveBalance.setPaidLeave((int)tosavedpl);
+                    leaveBalance.setPaidLeave((int) tosavedpl);
 
                 }
-
 
 
             }
@@ -86,6 +108,9 @@ public class LeaveServiceImpl implements LeaveService {
 
 
     }
+*/
+
+}
 
   /*  public String update(LeaveBalance leaveBalance, int  id ){
 
@@ -97,7 +122,36 @@ public class LeaveServiceImpl implements LeaveService {
         });*/
 
 //        return b;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*@Override
     public static  String lveBalDeduct() {

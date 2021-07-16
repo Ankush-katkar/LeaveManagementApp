@@ -1,6 +1,5 @@
 package com.perennialsys.controller;
 
-import com.perennialsys.entity.RegisterUser;
 import com.perennialsys.entity.User;
 import com.perennialsys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Objects;
 
 @Controller
 public class RegisterUserController {
@@ -34,12 +35,12 @@ public class RegisterUserController {
     }
 
     @PostMapping("/UserRegister")
-    public String User111(@ModelAttribute("userReg") RegisterUser us, RedirectAttributes redirectAttributes, BindingResult result) {
+    public String User111(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result) {
 
 
-        boolean userSaved=	userService.save(us);
+        User userSaved = userService.registerUser(newUser);
         //logger.trace("A TRACE Message");
-        if (userSaved) {
+        if (Objects.isNull(userSaved)) {
             redirectAttributes.addFlashAttribute("message", "Failed");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
             if (result.hasErrors()) {

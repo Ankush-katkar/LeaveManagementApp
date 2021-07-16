@@ -7,13 +7,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 public class MyUserDetails implements UserDetails {
 
-    private User user;
+    private final User user;
 
     public MyUserDetails(User user) {
         this.user = user;
@@ -21,6 +22,8 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+/*
+      List  user.getRoles();
         Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
@@ -29,6 +32,13 @@ public class MyUserDetails implements UserDetails {
         }
 
         return authorities;
+*/
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (String role : Arrays.asList("EMP","ADMIN","LEAD","ACC")) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+            return authorities;
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.perennialsys.entity;
 
+import lombok.Data;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import lombok.Data;
-import org.hibernate.annotations.Type;
-
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -29,18 +30,19 @@ public class User {
     private int id;
 
     private String username;
+    private  String email;
     private String password;
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "is_enabled")
     private boolean enabled;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   /* @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    )*/
+   /* private String roles;*/
 
     public int getId() {
         return id;
