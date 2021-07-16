@@ -37,7 +37,7 @@ public class LeaveServiceImpl implements LeaveService {
 
         // Object user = auth.getPrincipal();
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
-        User userObj = user.getUser();
+        User userObj = user.getCurrentUser();
         int userId = userObj.getId();
 
         LeaveBalance leavebal = leaveBalRepository.getById((long) userId);

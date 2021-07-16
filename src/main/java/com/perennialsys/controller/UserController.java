@@ -2,6 +2,8 @@ package com.perennialsys.controller;
 
 import com.perennialsys.entity.User;
 import com.perennialsys.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,37 +11,49 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Objects;
 
+/**
+ * User related enpoints
+ *
+ * @author Ankush Katkar
+ * @since 16-07-2021
+ */
 @Controller
-public class RegisterUserController {
+@RequestMapping("users")
+public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/UserRegister")
     public String Employee(Model model) {
-
         model.addAttribute("userReg", new User());
-
         return "Registration";
     }
 
     @GetMapping("/Login")
     public String LoginScreen() {
-
-
         return "Login";
     }
 
-    @PostMapping("/UserRegister")
-    public String User111(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result) {
-
-
+    /**
+     * This endpoint will register new user
+     * * @param newUser
+     *
+     * @param redirectAttributes
+     * @param result
+     * @return
+     */
+    @PostMapping("/")
+    public String registerNewUser(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result) {
+        LOGGER.info("Entering >> registerNewUser()");
         User userSaved = userService.registerUser(newUser);
-        //logger.trace("A TRACE Message");
         if (Objects.isNull(userSaved)) {
             redirectAttributes.addFlashAttribute("message", "Failed");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
@@ -50,6 +64,7 @@ public class RegisterUserController {
             redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
         }
+        LOGGER.info("returning >> registerNewUser()");
         return "redirect:/UserRegister";
 
     }

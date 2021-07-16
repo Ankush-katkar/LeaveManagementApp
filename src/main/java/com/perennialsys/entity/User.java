@@ -21,8 +21,11 @@ public class User {
     private int id;
 
     private String username;
+
     private String email;
+
     private String password;
+
     @Type(type = "org.hibernate.type.NumericBooleanType")
     @Column(name = "is_enabled")
     private boolean enabled;

@@ -11,7 +11,7 @@ public class UserRegisterController {
     @GetMapping("/")
     public String dashboard() {
 
-        return "dashboard";
+        return "Dashboard";
     }
 
 }

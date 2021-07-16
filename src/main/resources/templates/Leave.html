@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
 
 
 </head>
 <body>
 <h2 th:text="${message}"></h2>
-<div class="container"><form action="#" th:action="@{/apply}"
-                              method="post">
+<div class="container">
+    <form action="#" method="post"
+          th:action="@{/apply}">
 
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">From Date</label>
-        <input type="date" class="form-control"  name="leaveFromDate"  required>
+        <div class="form-group">
+            <label for="exampleInputEmail1">From Date</label>
+            <input type="date" class="form-control" name="leaveFromDate" required>
 
-    </div>
-    <div class="form-group">
-        <label for="exampleInputEmail1">To Date</label>
-        <input type="date" class="form-control"  name="leaveToDate"  required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">To Date</label>
+            <input type="date" class="form-control" name="leaveToDate" required>
 
     </div>
 

@@ -14,15 +14,17 @@ import java.util.List;
 @Data
 public class MyUserDetails implements UserDetails {
 
-    private final User user;
+    private final User currentUser;
 
-    public MyUserDetails(User user) {
-        this.user = user;
+    public MyUserDetails(User currentUser) {
+        this.currentUser = currentUser;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-/*
+
+        // TODO FIX THIS CODE
+        /*
       List  user.getRoles();
         Set<Role> roles = user.getRoles();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -43,12 +45,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return currentUser.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return currentUser.getUsername();
     }
 
     @Override
@@ -68,7 +70,7 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return currentUser.isEnabled();
     }
 
 }
