@@ -8,15 +8,11 @@ import com.perennialsys.repository.LeaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Iterator;
-import java.util.List;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
@@ -39,31 +35,31 @@ public class LeaveServiceImpl implements LeaveService {
     public String createNewLeave(Leave leave) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-       // Object user = auth.getPrincipal();
+        // Object user = auth.getPrincipal();
         MyUserDetails user = (MyUserDetails) auth.getPrincipal();
-      User userObj = user.getUser();
-      int userId= userObj.getId();
+        User userObj = user.getUser();
+        int userId = userObj.getId();
 
-       LeaveBalance leavebal= leaveBalRepository.getById((long) userId);
+        LeaveBalance leavebal = leaveBalRepository.getById((long) userId);
 
-        int pl =leavebal.getPaidLeave();
-        int el =leavebal.getEmergencyLeave();
+        int pl = leavebal.getPaidLeave();
+        int el = leavebal.getEmergencyLeave();
         LocalDate d1 = leave.getLeaveFromDate();
         LocalDate d2 = leave.getLeaveToDate();
         long diff = getDifferenceDays(d1, d2);
         String lt = leave.getLeaveType();
 
         if (lt.equals("el") || lt.equals("pl")) {
-                leavebal.setEmergencyLeave((int) (el-diff));
-            leavebal.setPaidLeave((int) (pl-diff));
+            leavebal.setEmergencyLeave((int) (el - diff));
+            leavebal.setPaidLeave((int) (pl - diff));
         }
 
-    leaveBalRepository.save(leavebal);
+        leaveBalRepository.save(leavebal);
 
-    Leave  savedObj=  lveRepo.save(leave);
+        Leave savedObj = lveRepo.save(leave);
 
 
-return "savedObj";
+        return "savedObj";
     }
       /*  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object user = auth.getPrincipal();

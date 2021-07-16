@@ -25,7 +25,7 @@ public class LeaveBalance {
     private int emergencyLeave;
     @Column(name = "paid_leave")
     private int paidLeave;
-    @OneToOne( cascade = CascadeType.ALL,
+    @OneToOne(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
