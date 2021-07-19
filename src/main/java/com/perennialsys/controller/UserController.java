@@ -23,7 +23,7 @@ import java.util.Objects;
  * @since 16-07-2021
  */
 @Controller
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
@@ -50,7 +50,7 @@ public class UserController {
      * @param result
      * @return
      */
-    @PostMapping("/")
+    @PostMapping("/userRegister")
     public String registerNewUser(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result) {
         LOGGER.info("Entering >> registerNewUser()");
         User userSaved = userService.registerUser(newUser);
@@ -58,15 +58,20 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "Failed");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
             if (result.hasErrors()) {
-                return "redirect:/UserRegister";
+                return "redirect:/users/UserRegister";
             }
             redirectAttributes.addFlashAttribute("message", "Your registration is successful");
             redirectAttributes.addFlashAttribute("alertClass", "alert-success");
 
         }
         LOGGER.info("returning >> registerNewUser()");
-        return "redirect:/UserRegister";
+        return "redirect:/users/UserRegister";
 
     }
 
+    @GetMapping("/")
+    public String dashboard() {
+
+        return "Dashboard";
+    }
 }

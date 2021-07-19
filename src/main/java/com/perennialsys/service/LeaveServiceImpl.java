@@ -5,6 +5,7 @@ import com.perennialsys.entity.LeaveBalance;
 import com.perennialsys.entity.User;
 import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.LeaveRepository;
+import com.perennialsys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +17,8 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private LeaveRepository lveRepo;
     @Autowired
@@ -40,7 +43,7 @@ public class LeaveServiceImpl implements LeaveService {
         User userObj = user.getCurrentUser();
         int userId = userObj.getId();
 
-        LeaveBalance leavebal = leaveBalRepository.getById((long) userId);
+        LeaveBalance leavebal = leaveBalRepository.findByUserId(userId);
 
         int pl = leavebal.getPaidLeave();
         int el = leavebal.getEmergencyLeave();
@@ -49,18 +52,31 @@ public class LeaveServiceImpl implements LeaveService {
         long diff = getDifferenceDays(d1, d2);
         String lt = leave.getLeaveType();
 
-        if (lt.equals("el") || lt.equals("pl")) {
+
+        if (lt.equals("el")) {
             leavebal.setEmergencyLeave((int) (el - diff));
+        }
+        if (lt.equals("pl")) {
             leavebal.setPaidLeave((int) (pl - diff));
         }
 
+        //  leave.setLeaveBalance(leavebal);
+        leavebal.setUser(userObj);
         leaveBalRepository.save(leavebal);
+        lveRepo.save(leave);
 
-        Leave savedObj = lveRepo.save(leave);
 
-
-        return "savedObj";
+        return "success";
     }
+
+    @Override
+    public LeaveBalance findByUserId(int userId) {
+        LeaveBalance usrObj = leaveBalRepository.findByUserId(userId);
+        return usrObj;
+    }
+
+
+
       /*  Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Object user = auth.getPrincipal();
         System.out.println(leave);*/

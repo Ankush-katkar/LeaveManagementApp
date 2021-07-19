@@ -41,7 +41,7 @@ public class LeaveController {
     public String applyNewLeave(Leave leave, BindingResult result, Model model) {
         leave.setStatus("PENDING");
         leaveService.createNewLeave(leave);
-        return "redirect:leave";
+        return "redirect:/leaves/apply";
     }
 
     @GetMapping("/leave-balance")
