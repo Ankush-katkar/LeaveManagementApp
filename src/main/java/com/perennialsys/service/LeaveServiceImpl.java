@@ -60,9 +60,10 @@ public class LeaveServiceImpl implements LeaveService {
             leavebal.setPaidLeave((int) (pl - diff));
         }
 
-        //  leave.setLeaveBalance(leavebal);
-        leavebal.setUser(userObj);
+
+        leave.setUser(userObj);
         leaveBalRepository.save(leavebal);
+
         lveRepo.save(leave);
 
 

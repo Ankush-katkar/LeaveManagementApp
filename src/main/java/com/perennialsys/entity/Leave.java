@@ -9,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -37,9 +40,15 @@ public class Leave {
     private String leaveMessage;
     @Column(name = "status")
     private String status;
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    //first leavebal.col ref col // forign key col ref known
+    @JoinColumn(name="user_id", referencedColumnName = "user_id")
+    private  User user;
+/*
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     private LeaveBalance leaveBalance;
+*/
 
 }
