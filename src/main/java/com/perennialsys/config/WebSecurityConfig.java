@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/leavebal/**").hasAnyAuthority("ACC", "ADMIN")
                 .antMatchers("/delete/**").hasAuthority("ADMIN")
                 .antMatchers("/users/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

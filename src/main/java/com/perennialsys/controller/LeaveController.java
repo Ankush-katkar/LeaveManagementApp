@@ -1,11 +1,13 @@
 package com.perennialsys.controller;
 
 import com.perennialsys.entity.Leave;
+import com.perennialsys.exception.InSufficientLeaveBalance;
 import com.perennialsys.service.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

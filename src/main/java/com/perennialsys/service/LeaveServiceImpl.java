@@ -3,6 +3,7 @@ package com.perennialsys.service;
 import com.perennialsys.entity.Leave;
 import com.perennialsys.entity.LeaveBalance;
 import com.perennialsys.entity.User;
+import com.perennialsys.exception.InSufficientLeaveBalance;
 import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.LeaveRepository;
 import com.perennialsys.repository.UserRepository;
@@ -52,29 +53,59 @@ public class LeaveServiceImpl implements LeaveService {
         long diff = getDifferenceDays(d1, d2);
         String lt = leave.getLeaveType();
 
+       // if (el > 0) {
+            if (lt.equals("el")) {
+                    if (el > 0)
+                        leavebal.setEmergencyLeave((int) (el - diff));
 
-        if (lt.equals("el")) {
-            leavebal.setEmergencyLeave((int) (el - diff));
-        }
+                    else
+                        throw new InSufficientLeaveBalance("Leave balance not available");
+                }
+
+       // }
+
         if (lt.equals("pl")) {
-            leavebal.setPaidLeave((int) (pl - diff));
+
+                if (pl > 0)
+                    leavebal.setPaidLeave((int) (pl - diff));
+
+                else
+                    throw new InSufficientLeaveBalance("Leave balance not available");
+            }
+
+
+
+
+
+
+
+/*
+
+            if (pl > 0) {
+
+                if (lt.equals("pl")) {
+                    leavebal.setPaidLeave((int) (pl - diff));
+                } else {
+                    throw new InSufficientLeaveBalance("Leave balance is not avialable");
+                }
+
+            }
+*/
+
+            leave.setUser(userObj);
+            leaveBalRepository.save(leavebal);
+
+            lveRepo.save(leave);
+
+
+            return "success";
         }
 
-
-        leave.setUser(userObj);
-        leaveBalRepository.save(leavebal);
-
-        lveRepo.save(leave);
-
-
-        return "success";
-    }
-
-    @Override
-    public LeaveBalance findByUserId(int userId) {
-        LeaveBalance usrObj = leaveBalRepository.findByUserId(userId);
-        return usrObj;
-    }
+        @Override
+        public LeaveBalance findByUserId ( int userId){
+            LeaveBalance usrObj = leaveBalRepository.findByUserId(userId);
+            return usrObj;
+        }
 
 
 
@@ -124,7 +155,7 @@ public class LeaveServiceImpl implements LeaveService {
     }
 */
 
-}
+    }
 
   /*  public String update(LeaveBalance leaveBalance, int  id ){
 
