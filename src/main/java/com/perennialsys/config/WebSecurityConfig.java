@@ -48,8 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/approveLeave/**").hasAnyAuthority("ADMIN", "LEAD")
                 .antMatchers("/leavebal/**").hasAnyAuthority("ACC", "ADMIN")
                 .antMatchers("/delete/**").hasAuthority("ADMIN")
-                .antMatchers("/users/**").permitAll()
-                .antMatchers("/leaves/**").permitAll()
+               /* .antMatchers("/users/**").permitAll()
+                .antMatchers("/leaves/**").permitAll()*/
 
                 .anyRequest().authenticated()
                 .and()

@@ -1,7 +1,6 @@
 package com.perennialsys.service;
 
 import com.perennialsys.entity.LeaveBalance;
-import com.perennialsys.entity.Role;
 import com.perennialsys.entity.User;
 import com.perennialsys.repository.LeaveBalRepository;
 import com.perennialsys.repository.RegisterRepository;
@@ -12,9 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,10 +19,8 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     RegisterRepository registerRepository;
-
     @Autowired
     LeaveBalRepository leaveBalRepository;
-
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -34,16 +29,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerUser(User newUser) {
         LOGGER.info("Entering >> registerUser()");
+        List roleSet = newUser.getRoles();
+        newUser.setRoles(roleSet);
 
-       List roleSet= newUser.getRoles();
-
-     //   List<Role> roleSet=roleRepository.findAll();
-
-
-    newUser.setRoles(roleSet);
-
-/*
-//code for default role
+        /*
+        //code for default role
         Role roleUser = roleRepository.findBySpecificName("EMP");
         newUser.addRole(roleUser);
         */
