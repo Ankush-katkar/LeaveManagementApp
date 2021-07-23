@@ -11,17 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LeaveServiceImpl implements LeaveService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private LeaveRepository lveRepo;
+    private LeaveRepository leaveRepository;
     @Autowired
     private LeaveBalRepository leaveBalRepository;
     private Object userdetails;
@@ -70,7 +73,7 @@ public class LeaveServiceImpl implements LeaveService {
         leave.setUser(userObj);
         leaveBalRepository.save(leavebal);
 
-        lveRepo.save(leave);
+        leaveRepository.save(leave);
 
 
         return "success";
@@ -80,6 +83,30 @@ public class LeaveServiceImpl implements LeaveService {
     public LeaveBalance findByUserId(int userId) {
         LeaveBalance usrObj = leaveBalRepository.findByUserId(userId);
         return usrObj;
+    }
+
+    @Override
+    public String rejectValue(@PathVariable int leaveId) {
+
+        Leave leave = leaveRepository.findById(leaveId).get();
+        leave.setStatus("REJECTED");
+        leaveRepository.save(leave);
+        return "leave";
+    }
+
+    @Override
+    public String approveLeave(@PathVariable int leaveId) {
+        Leave leave = leaveRepository.findById(leaveId).get();
+
+        leave.setStatus("APPROVED");
+        leaveRepository.save(leave);
+        return "success";
+    }
+
+    @Override
+    public List leaveStatus() {
+       List leaveRecord= leaveRepository.findAll();
+       return leaveRecord;
     }
 
 

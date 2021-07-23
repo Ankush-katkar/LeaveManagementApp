@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface LeaveRepository extends JpaRepository<Leave, Integer> {
 
 
+
 }
