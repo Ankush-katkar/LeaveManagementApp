@@ -1,5 +1,6 @@
 package com.perennialsys.service;
 
+import com.perennialsys.entity.Role;
 import com.perennialsys.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 public class MyUserDetails implements UserDetails {
@@ -24,10 +26,10 @@ public class MyUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         // TODO FIX THIS CODE
-        /*
-      List  user.getRoles();
-        Set<Role> roles = user.getRoles();
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+     /* List  currentUser.getRoles();*/
+        List<Role> roles = currentUser.getRoles();
+        /*List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
@@ -35,10 +37,10 @@ public class MyUserDetails implements UserDetails {
 
         return authorities;
 */
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+       List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
-        for (String role : Arrays.asList("EMP", "ADMIN", "LEAD", "ACC")) {
-            authorities.add(new SimpleGrantedAuthority(role));
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;
     }

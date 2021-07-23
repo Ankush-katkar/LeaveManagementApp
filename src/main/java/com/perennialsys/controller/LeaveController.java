@@ -31,7 +31,7 @@ public class LeaveController {
     @GetMapping("/status")
     public String leaveStatus(Model model) {
 
-//        List leaveRec = leaveRepository.findAll();
+//        List leaveRec = lea.findAll();
 //        model.addAttribute("leaveRec", leaveRec);
 //        //  model.addAttributes("leaveRec");
 //        System.out.println(leaveRec);

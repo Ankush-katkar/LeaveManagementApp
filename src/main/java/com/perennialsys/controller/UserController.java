@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * User related enpoints
@@ -51,8 +53,10 @@ public class UserController {
      * @return
      */
     @PostMapping("/userRegister")
-    public String registerNewUser(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result) {
+    public String registerNewUser(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
         LOGGER.info("Entering >> registerNewUser()");
+
+
         User userSaved = userService.registerUser(newUser);
         if (Objects.isNull(userSaved)) {
             redirectAttributes.addFlashAttribute("message", "Failed");
