@@ -76,7 +76,7 @@ public class LeaveController {
     public String rejectLeave(@PathVariable int leaveId) {
         LOGGER.info("Entering >> leaveReject()");
         String leave = leaveService.rejectValue(leaveId);
-        LOGGER.info("Returning from >> leaveReject()");
+        LOGGER.info("Returning >> leaveReject()");
         return "redirect:/leaves/status";
 
     }
