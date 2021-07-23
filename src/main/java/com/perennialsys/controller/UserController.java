@@ -55,9 +55,7 @@ public class UserController {
     @PostMapping("/userRegister")
     public String registerNewUser(@ModelAttribute("userReg") User newUser, RedirectAttributes redirectAttributes, BindingResult result, Model model) {
         LOGGER.info("Entering >> registerNewUser()");
-
-
-        User userSaved = userService.registerUser(newUser);
+         User userSaved = userService.registerUser(newUser);
         if (Objects.isNull(userSaved)) {
             redirectAttributes.addFlashAttribute("message", "Failed");
             redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
