@@ -10,16 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Data
-@Table(name="register")
+@Table(name = "register")
 public class RegisterUser {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private  String firstname;
-    private  String lastname;
-    private  String email;
-    private  String username;
-    private  String password;
-    private  String roles;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String username;
+    private String password;
+    private String roles;
 //    private String address;
 }

@@ -25,21 +25,21 @@
     <tbody>
     <tr th:each="leave: ${leaveRec}">
         <td th:text="${leave.id}" />
-        <td th:text="${leave.leavefromdate}" />
+        <td th:text="${leave.leaveFromDate}" />
 
-        <td th:text="${leave.leavetodate}" />
+        <td th:text="${leave.leaveToDate}" />
 
         <td th:text="${leave.reason}" />
 
-        <td th:text="${leave.leavetype}" />
+        <td th:text="${leave.leaveType}" />
 
-        <td th:text="${leave.leavemessage}" />
+        <td th:text="${leave.leaveMessage}" />
 
         <td th:text="${leave.status}" />
         <td >
     <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
-        <a th:href="@{'/approveLeave/' + ${leave.id}}"> Approved</a>|
-        <a th:href="@{'/rejectLeave/' + ${leave.id}}"> Reject</a>
+        <a th:href="@{ ${leave.id}+'/approve' }"> Approved</a>|
+        <a th:href="@{ ${leave.id}+'/reject' }"> Reject</a>
     </div></td>
     </tr>
     </tbody>
