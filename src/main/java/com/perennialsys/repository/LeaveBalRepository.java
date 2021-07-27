@@ -10,4 +10,5 @@ public interface LeaveBalRepository extends JpaRepository<LeaveBalance, Integer>
 
     LeaveBalance findByUserId(int userId);
 
+
 }

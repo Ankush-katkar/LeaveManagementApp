@@ -40,6 +40,8 @@ public class Leave {
     private String leaveMessage;
     @Column(name = "status")
     private String status;
+    @Column(name = "days")
+    private Long noOfDays;
     @ManyToOne(optional = false,fetch = FetchType.EAGER)
     //first leavebal.col ref col // forign key col ref known
     @JoinColumn(name="user_id", referencedColumnName = "user_id")

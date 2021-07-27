@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").hasAnyAuthority("EMP", "ADMIN", "LEAD", "ACC")
                 //     .antMatchers("/leave").hasAnyAuthority("EMP", "ADMIN", "LEAD", "ACC")
                 .antMatchers("/approveLeave/**").hasAnyAuthority("ADMIN", "LEAD")
-                .antMatchers("/leavebal/**").hasAnyAuthority("ACC", "ADMIN")
+                //.antMatchers("/leavebal/**").hasAnyAuthority("ACC", "ADMIN")
                 .antMatchers("/delete/**").hasAuthority("ADMIN")
                /* .antMatchers("/users/**").permitAll()
                 .antMatchers("/leaves/**").permitAll()*/

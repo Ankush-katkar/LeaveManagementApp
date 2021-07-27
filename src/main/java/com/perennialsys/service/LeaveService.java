@@ -16,5 +16,7 @@ public interface LeaveService {
 
     public String approveLeave(int leaveId);
 
+    public String cancelLeave(int leaveId);
+
     public List leaveStatus();
 }

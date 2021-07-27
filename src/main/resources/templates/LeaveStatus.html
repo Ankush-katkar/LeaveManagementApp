@@ -17,6 +17,7 @@
         <th scope="col">LeaveType</th>
         <th scope="col">LeaveMessage</th>
         <th scope="col">LeaveStatus</th>
+        <th scope="col">Action</th>
         <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
             <th scope="col">Actions</th>
         </div>
@@ -36,6 +37,9 @@
         <td th:text="${leave.leaveMessage}" />
 
         <td th:text="${leave.status}" />
+        <td>
+        <a th:href="@{ ${leave.id}+'/cancel' }"> Cancel Leave</a>|
+        </td>
         <td >
     <div sec:authorize="hasAnyAuthority('ADMIN', 'LEAD')">
         <a th:href="@{ ${leave.id}+'/approve' }"> Approved</a>|

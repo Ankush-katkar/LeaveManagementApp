@@ -1,4 +1,5 @@
 package com.perennialsys.service;
+
 import com.perennialsys.entity.Leave;
 import com.perennialsys.entity.LeaveBalance;
 import com.perennialsys.entity.User;
@@ -26,10 +27,12 @@ public class LeaveServiceImpl implements LeaveService {
     @Autowired
     private LeaveBalRepository leaveBalRepository;
     private Object userdetails;
+
     public static long getDifferenceDays(LocalDate d1, LocalDate d2) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
         return ChronoUnit.DAYS.between(d1, d2);
     }
+
 
     @Override
     public String createNewLeave(Leave leave) {
@@ -47,6 +50,7 @@ public class LeaveServiceImpl implements LeaveService {
         LocalDate d1 = leave.getLeaveFromDate();
         LocalDate d2 = leave.getLeaveToDate();
         long diff = getDifferenceDays(d1, d2);
+        leave.setNoOfDays(diff);
         String leaveType = leave.getLeaveType();
         if (leaveType.equals("el")) {
             if (emgLeave > 0)
@@ -86,6 +90,36 @@ public class LeaveServiceImpl implements LeaveService {
         leave.setStatus("APPROVED");
         leaveRepository.save(leave);
         return "success";
+    }
+
+    @Override
+    public String cancelLeave(int leaveId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        // Object user = auth.getPrincipal();
+        MyUserDetails user = (MyUserDetails) auth.getPrincipal();
+        User userObj = user.getCurrentUser();
+        int userId = userObj.getId();
+
+        Leave leaveCancel = leaveRepository.findById(leaveId).get();
+        LeaveBalance leaveBalance = leaveBalRepository.findByUserId(userId);
+
+        String status= leaveCancel.getStatus();
+      if(status.equals("APPROVED")) {
+            int paidLeave = leaveBalance.getPaidLeave();
+            int emergencyLeave = leaveBalance.getEmergencyLeave();
+            String leaveType = leaveCancel.getLeaveType();
+            Long noOfDays = leaveCancel.getNoOfDays();
+            if (leaveType.equals("el")) {
+                leaveBalance.setEmergencyLeave((int) (emergencyLeave + noOfDays));
+            }
+            if (leaveType.equals("pl")) {
+                leaveBalance.setPaidLeave((int) (paidLeave + noOfDays));
+            }
+        }
+        leaveCancel.setStatus("CANCEL");
+        leaveBalRepository.save(leaveBalance);
+
+        return "leaveCancel";
     }
 
     @Override

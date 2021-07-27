@@ -32,7 +32,7 @@ public class LeaveController {
     }
 
     @GetMapping("/status")
-    public String  leaveStatus(Leave leave ,Model model) {
+    public String leaveStatus(Leave leave, Model model) {
         LOGGER.info("Entering >>  leaveStatus()");
         List leaveRec = leaveService.leaveStatus();
         model.addAttribute("leaveRec", leaveRec);
@@ -78,10 +78,16 @@ public class LeaveController {
         String leave = leaveService.rejectValue(leaveId);
         LOGGER.info("Returning from>> leaveReject()");
         return "redirect:/leaves/status";
+        }
 
+    @GetMapping("/{leaveId}/cancel")
+    public String cancelLeave ( @PathVariable int leaveId) {
+        LOGGER.info("Entering >> leaveCancle()");
+        String leave = leaveService.cancelLeave(leaveId);
+        LOGGER.info("Returning from>> leaveCancle()");
+        return "redirect:/leaves/status";
     }
 
-
-}
+    }
 
 
